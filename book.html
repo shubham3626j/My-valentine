@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My valentine</title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+.paper{
+  background-image: url(paper2.jpg) !important; /* Replace with the actual texture image */
+    background-size: cover; /* Ensures the image covers the entire area */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px; /* Adds spacing inside the paper */
+    border-radius: 8px; /* Softens the edges */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    color: #333; /* Darker text for readability */
+    font-family: 'Georgia', serif; /* A classic font for a handwritten feel */
+
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 100cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #fff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+  
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(231, 32%, 29%) url("front.jpeg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 100%, 30%); /* Dark red heading color */
+}
+
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 100%, 30%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  animation: floatEmojis 6s ease-in-out infinite;
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.emoji:nth-child(1) {
+  animation-delay: 0s;
+  left: 10%;
+}
+.emoji:nth-child(2) {
+  animation-delay: 1s;
+  left: 20%;
+}
+.emoji:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.emoji:nth-child(4) {
+  animation-delay: 3s;
+  left: 40%;
+}
+.emoji:nth-child(5) {
+  animation-delay: 4s;
+  left: 50%;
+}
+.emoji:nth-child(6) {
+  animation-delay: 5s;
+  left: 60%;
+}
+.emoji:nth-child(7) {
+  animation-delay: 6s;
+  left: 70%;
+}
+.emoji:nth-child(8) {
+  animation-delay: 7s;
+  left: 80%;
+}
+.emoji:nth-child(9) {
+  animation-delay: 8s;
+  left: 90%;
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+      <div class="page">
+        <div class="front cover">
+          <h1
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+              font-size: 2rem;
+    font-weight: bold;
+    color: #ffef92; /* Warm golden color */
+    text-shadow: 0 0 5px #ffea74, 
+                 0 0 10px #ffa639, 
+                 0 0 20px #ff6e39, 
+                 0 0 30px rgba(255, 187, 105, 0.8);
+    font-family: 'Cinzel', serif; /* Elegant font */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            "
+          >
+            To the one who holds my ❤️ <br>
+            For you , My Forever ✨
+
+          </h1>
+
+          <p
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            <br />
+          </p>
+        </div>
+        <div class="back paper">
+          <h2>The Dawn of Something Beautiful</h2>
+
+       <p>Some souls enter our lives like an unexpected breeze, yet their presence lingers forever. You are one of those rare beings who turn ordinary moments into something truly magical.
+
+        From the very first conversation, something about you stood out—your possesiveness, the small efforts to make a little more part of me yours 
+        
+        Those early phone calls felt like a breath of fresh air, warm and heart-touching in a way I had never known before. Listening to you is nothing short of a mesmerizing experience, one that lingers like a beautiful melody.
+        
+        So, here’s to us—our conversations, our connection, and the beautiful moments yet to come. 💖</p>
+        </div>
+      </div>
+      <!--2nd page-->
+      <div class="page">
+        <div class="front paper">
+          <h2>From Strangers to a beautiful bond</h2>
+          <p>
+            It’s astonishing to think that just a few months ago, you were a stranger to me. Yet, fate brought us together through a game, turning a simple encounter into a connection I will forever cherish.
+
+
+The way you make me smile have already made a place in my heart. I never expected to meet someone like you, but now, I can’t imagine not having you in my life.
+whenever there is a topic of love going on somewhere its your smiling face that comes in my mind.
+
+Maybe it was destiny, or maybe it was just luck—but whatever it was, I’m glad it brought me to you. 💕
+          </p>
+        </div>
+        <div class="back">
+          <img src="11.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--3rd page-->
+      <div class="page">
+        <div class="front paper">
+          <h2>My Sweetheart</h2>
+          <p>
+            You are the perfect blend of grace and mischief—so responsible when it matters, yet a baby at heart when you find comfort in me. Just like an ideal, beautiful woman, you carry yourself with wisdom, knowing exactly how to act in every moment. That little possessiveness of yours isn’t just a trait; it’s a silent promise that I am yours, and you are mine. You are addictive—someone I can never get enough of—yet you hide your tenderness beneath a playful veil of anger. But I see through it—I see the way you care, the unspoken love in your every gesture. Every call with you feels like a chapter in a story I never want to end, a bond painted in the color of a rose—delicate yet enduring, beautiful yet fierce. What we share isn’t just a connection; it’s something infinite, something beyond words.✨💖
+          </p>
+        </div>
+        <div class="back paper">
+          <h2>Growing Together, Forever</h2>
+          <p>
+            I want to see you grow, shine, and become everything you dream of—because you deserve nothing less than the best. And as you chase your dreams, I want to be right beside you, matching every step, building something beautiful together. This journey isn’t just yours or mine; it’s ours. Through every challenge and every triumph, we will push each other to be better, to love deeper, and to create a bond that only grows stronger with time. Because the best version of me exists with you, and together, we will be unstoppable. 💫❤️
+          </p>
+        </div>
+      </div>
+      <!--4th page-->
+      <div class="page">
+        <div class="front paper">
+          <h2>The Best Part of My Day🤞💖</h2>
+          <p>
+            Talking to you has quickly become one of the highlights of my day. Every time I see a message from you, I can’t help but smile—it’s like a little spark of happiness. No matter how my day is going, our conversations make everything feel lighter and brighter.
+
+            You have a way of making the simplest moments special.
+            
+            It’s not just about how beautiful you are; it’s the warmth, kindness, and charm in the way you talk. Your words have a magic that makes me feel at ease, and your presence alone brings joy.
+            
+            I never knew a conversation could mean so much, but with you, it does. 💕
+          </p>
+        </div>
+        <div class="back">
+          <img src="12.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--5th page-->
+      <div class="page">
+        <div class="front paper">
+          <h1>Waiting but never apart</h1>
+          <p>
+            Sometimes, I find myself wishing I could meet you in person, just to see the smile that brightens my day and hear the voice that makes everything feel lighter. Maybe it’s a long shot, but the thought still lingers.
+            I promise that no matter the distance, every moment brings us closer to the day we finally meet. As soon as I can, I’ll be there—right beside you, where I’ve always belonged. Until then, know that my heart is already with you. ❤️
+            
+          </p>
+        </div>
+        <div class="back paper">
+          <h1>Always yours , Always with you</h1>
+          <p>
+            I promise to listen to you, to understand you, and to stand by your side , even when the world doesn’t. Even if you’re wrong, I’ll be there, not to judge, but to hold your hand and face everything together. No matter what happens, you will never have to stand alone, because I will always be yours, and you will always have me. ❤️
+          </p>
+        </div>
+      </div>
+      <!--6th page-->
+      <div class="page">
+        <div class="front paper">
+          <h2>A Beauty that stays with me</h2>
+          <p>
+            There’s a quiet kind of beauty in you , one that doesn’t just come from how you look, but from the way you carry yourself. Your smile has a warmth that stays, the kind that makes everything around you feel a little brighter. And no matter what you wear, you look effortlessly beautiful, but there’s something about you in traditional attire that feels timeless, like you were meant for it. It’s not just about appearance; it’s the way you make everything you touch a little more graceful, a little more you.
+          </p>
+        </div>
+        <div class="back paper">
+          <h2>A future built for us</h2>
+          <p>
+            I dream of a life where we are together , where every morning begins with me waking up next to you, and every day is filled with the joy of making you smile. I want to build a home with you, one that holds love, laughter, and the beautiful family we create together. Wherever you wish to go, I want to be the one holding your hand, making every journey ours. There will be fights, no doubt, but each one will only teach us, strengthen us, and remind us that what we have is worth everything. And through it all, no matter what life brings, one thing will never change , I will always be yours, and I will never leave your side. ❤️
+          </p>
+        </div>
+      </div>
+      <!--7th page-->
+      <div class="page">
+        <div class="front paper">
+          <h2>Grateful for You🌹❤</h2>
+          <p>
+            I just wanted to take a moment to let you know how much I appreciate you. From the very start, you’ve been someone truly special—someone I admire more than words can express.
+
+            Meeting you, even for a short time, has been a gift.
+            
+            Your kindness, your presence, and the way you make every conversation feel meaningful mean more to me than you know. I’m grateful that our paths crossed, and no matter what the future holds, I’ll always be thankful for you.
+            
+            Some people leave a mark on our hearts without even trying and you are one of them.
+            Just know that i am always keeping you with me.💕
+          </p>
+        </div>
+        <div class="back paper">
+          <h2>Will You Be Mine? ❤️✨</h2>
+          <p>From the very first moment, you became a part of me in ways I never knew were possible. With you, every moment feels special, every dream feels closer, and every day feels like it’s meant to be lived with you. I don’t promise perfection, but I promise a love that never fades, a hand that never lets go, and a heart that is only yours.
+
+            So, will you be mine—today, tomorrow, and forever? 💍❤️ </p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="front">
+          <img src="proposal1.jpeg" alt="Img 1" />
+        </div>
+        <div class="back cover">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="emoji">❤️‍🔥</div>
+<div class="emoji">🫶🏻</div>
+<div class="emoji">❤️</div>
+<div class="emoji">😘</div>
+<div class="emoji">👨‍❤️‍💋‍👨</div>
+<div class="emoji">💓</div>
+<div class="emoji">❣️</div>
+<div class="emoji">💘</div>
+<div class="emoji">💖</div>
+<div class="emoji">💙</div>
+<div class="emoji">💚</div>
+<div class="emoji">🥰</div>
+<div class="emoji">💗</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>
+
